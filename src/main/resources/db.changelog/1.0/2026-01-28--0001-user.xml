@@ -24,6 +24,7 @@
             <column name="phone_number" type="VARCHAR(25)">
                 <constraints nullable="false" unique="true"/>
             </column>
+            <column name="photo_url" type="VARCHAR(100)"/>
             <column name="position" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
