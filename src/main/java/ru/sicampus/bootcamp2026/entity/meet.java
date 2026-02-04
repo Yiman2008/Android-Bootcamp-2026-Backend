@@ -1,22 +1,30 @@
 package ru.sicampus.bootcamp2026.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
 @Entity
-@Table(name = "meet")
-public class meet {
+@Table(name = "meetings")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Meet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
+    @Column(nullable = false)
     private String title;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column
     private String description;
 
     @Column(name = "meet_date", nullable = false)
@@ -24,4 +32,24 @@ public class meet {
 
     @Column(name = "meet_time", nullable = false)
     private LocalTime meetTime;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "meet", cascade = CascadeType.ALL)
+    private Set<Invitation> invitations = new HashSet<>();
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
