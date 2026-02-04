@@ -13,5 +13,4 @@ public interface invitationsRepository extends JpaRepository<invitations, Long> 
     Optional<invitations> findByMeetIdAndUserId(Long meetId, Long userId);
     boolean existsByMeetIdAndUserId(Long meetId, Long userId);
     long countByMeetId(Long meetId);
-
 }
